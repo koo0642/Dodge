@@ -13,12 +13,22 @@ public class BulletSpawner : MonoBehaviour
     private float timeAfterSpawn; // 최근 생성 시점에서 지난 시간 
     void Start()
     {
-        
+        timeAfterSpawn = 0f;
+        spawnRate = Random.Range(spawnRateMin, spawnRateMax);
+        target = FindObjectOfType<PlayerController>().transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        timeAfterSpawn += Time.deltaTime;
+        if(timeAfterSpawn>= spawnRate)
+        {
+            timeAfterSpawn = 0f;
+            GameObject bullte
+                = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            bullte.transform.LookAt(target);
+            spawnRate = Random.Range(spawnRateMin, spawnRateMax);
+        }
     }
 }
